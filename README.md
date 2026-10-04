@@ -1,29 +1,32 @@
 # Personal SEO Growth Engine
 
-A zero-cost AI-powered SEO and GEO (Generative Engine Optimization) content engine for personal projects, currently focused on mynailstudio.base44.app and caebikesdirect.myshopify.com.
+Zero-recurring-cost AI content system for:
+- https://mynailstudio.base44.app (Nail Studio)
+- https://caebikesdirect.myshopify.com (California eBikes / eBike Super Shop)
 
-## Overview
+Built under the Autonomous AI Build Playbook.
 
-This repository contains tooling and workflows that generate, optimize, and manage SEO content using AI, with the goal of improving organic visibility without paid services.
+## Quick Start
 
-## Features (Planned / In Progress)
+1. Copy `.env.example` to `.env` and fill in secrets (never commit `.env`).
+2. Install Ollama and pull a model that runs well on your hardware.
+3. Place brand context in `brands/`.
+4. Run generation scripts from `scripts/`.
+5. Review Markdown articles in `articles/` before any publish.
 
-- Automated content generation for target domains
-- SEO and GEO optimization pipelines
-- Low- or zero-cost infrastructure approach
-- Support for multiple site targets
+## Structure
 
-## Status
-
-This repository currently contains only the project description. Implementation details will be expanded over time.
-
-## Getting Started
-
-```bash
-git clone https://github.com/kmkirk83/-personal-seo-growth.git
-cd -- -personal-seo-growth
+```
+brands/           # Brand voice, products, audience notes
+articles/         # Generated Markdown articles (by brand)
+scripts/          # Generation + Shopify draft publisher
+docs/ai-delivery/ # Outcome Contract, ADR, change records
+logs/             # Simple article status log
 ```
 
-## License
+## Safety Rules
 
-To be determined.
+- All publishes start as **draft**.
+- Human approval required before going live.
+- Secrets stay in `.env` only.
+- No paid APIs required.
