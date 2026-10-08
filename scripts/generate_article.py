@@ -52,8 +52,8 @@ def read_brand(brand: str) -> str:
 
 def slugify(text: str) -> str:
     s = text.lower().strip()
-    s = re.sub(r"[^a-z0-9\\s-]", "", s)
-    s = re.sub(r"[\\s_-]+", "-", s).strip("-")
+    s = re.sub(r"[^a-z0-9\s-]", "", s)
+    s = re.sub(r"[\s_-]+", "-", s).strip("-")
     return s[:80] or "article"
 
 
@@ -132,22 +132,22 @@ def main() -> None:
         title = args.topic.strip()
         slug = slugify(title)
         fm = (
-            f"---\\ntitle: \\"{title}\\"\\nslug: {slug}\\nbrand: {args.brand}\\n"
-            f"keyword: {args.keyword or args.topic}\\nmeta_description: {title[:150]}\\n"
-            f"date: {date.today().isoformat()}\\nstatus: draft\\n---\\n\\n"
+            f"---\ntitle: \"{title}\"\nslug: {slug}\nbrand: {args.brand}\n"
+            f"keyword: {args.keyword or args.topic}\nmeta_description: {title[:150]}\n"
+            f"date: {date.today().isoformat()}\nstatus: draft\n---\n\n"
         )
         body = fm + body
 
     out_dir = ARTICLES / args.brand
     out_dir.mkdir(parents=True, exist_ok=True)
     # Prefer slug from front-matter
-    m = re.search(r"^slug:\\s*[\\\"']?([\\w-]+)", body, re.M)
+    m = re.search(r"^slug:\s*[\"']?([\w-]+)", body, re.M)
     slug = m.group(1) if m else slugify(args.topic)
     out_path = out_dir / f"{date.today().isoformat()}-{slug}.md"
-    out_path.write_text(body if body.endswith("\\n") else body + "\\n")
+    out_path.write_text(body if body.endswith("\n") else body + "\n")
     print(str(out_path))
 
-    title_m = re.search(r"^title:\\s*[\\\"']?([^\\\"'\\n]+)", body, re.M)
+    title_m = re.search(r"^title:\s*[\"']?([^\"'\n]+)", body, re.M)
     title = title_m.group(1).strip() if title_m else args.topic
     append_log(
         f"| {date.today().isoformat()} | {args.brand} | {title} | {args.keyword or args.topic} | draft | {out_path.name} |"
