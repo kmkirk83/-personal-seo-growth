@@ -44,7 +44,7 @@ def parse_front_matter(text: str) -> tuple[dict, str]:
         if ":" in line:
             k, v = line.split(":", 1)
             meta[k.strip()] = v.strip().strip('"').strip("'")
-    return meta, parts[2].lstrip("\\n")
+    return meta, parts[2].lstrip("\n")
 
 
 def main() -> None:
