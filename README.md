@@ -2,31 +2,54 @@
 
 Zero-recurring-cost AI content system for:
 - https://mynailstudio.base44.app (Nail Studio)
-- https://caebikesdirect.myshopify.com (California eBikes / eBike Super Shop)
+- https://caebikesdirect.myshopify.com (CA EBIKES DIRECT)
 
-Built under the Autonomous AI Build Playbook.
+Built under the Autonomous AI Build Playbook. First vertical slice is production-ready for local generation + Shopify draft publish.
 
 ## Quick Start
 
-1. Copy `.env.example` to `.env` and fill in secrets (never commit `.env`).
-2. Install Ollama and pull a model that runs well on your hardware.
-3. Place brand context in `brands/`.
-4. Run generation scripts from `scripts/`.
-5. Review Markdown articles in `articles/` before any publish.
+```bash
+git clone https://github.com/kmkirk83/-personal-seo-growth.git
+cd -- -personal-seo-growth
+cp .env.example .env   # add Shopify token + blog id when ready
+pip install -r requirements.txt
+# Install Ollama and: ollama pull llama3.1:8b
+```
+
+### Generate an article
+
+```bash
+python scripts/generate_article.py --brand caebikes --topic "Mid-drive vs hub motor kits" --keyword "mid drive conversion kit"
+python scripts/generate_article.py --brand mynailstudio --topic "Chrome press-on nails at home" --keyword "chrome press on nails"
+```
+
+### Publish Shopify draft (caebikes)
+
+```bash
+python scripts/publish_shopify_draft.py articles/caebikes/YOUR-FILE.md --blog-id $SHOPIFY_BLOG_ID
+```
+
+### Stage Base44 (mynailstudio)
+
+See `scripts/stage_base44.md`.
 
 ## Structure
 
 ```
-brands/           # Brand voice, products, audience notes
-articles/         # Generated Markdown articles (by brand)
-scripts/          # Generation + Shopify draft publisher
-docs/ai-delivery/ # Outcome Contract, ADR, change records
-logs/             # Simple article status log
+brands/           # Brand voice, products, audience
+articles/         # Generated + sample Markdown
+scripts/          # generate_article.py, publish_shopify_draft.py
+docs/ai-delivery/ # Contract, ADR, checklist, portfolio map
+logs/             # article-log.md
 ```
 
-## Safety Rules
+## Safety
 
-- All publishes start as **draft**.
-- Human approval required before going live.
-- Secrets stay in `.env` only.
-- No paid APIs required.
+- Publishes are **draft only**
+- Human approval before live
+- Secrets only in `.env`
+- No paid APIs required
+
+## Operator checklist
+
+See `docs/ai-delivery/05-operator-checklist.md`.
